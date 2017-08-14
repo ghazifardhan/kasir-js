@@ -1,0 +1,44 @@
+{% extends 'master' %}
+
+{% block content %}
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="box-header">
+            <h2 class="box-title">Daftar Menu</h2>
+            <br><br>
+            {{ linkTo('menu.create', 'Create New Menu') }}
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table id="myTable" class="table table-bordered table-hover table-striped table-condensed">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Kode Menu</th>
+                  <th>Nama Menu</th>
+                  <th>Harga</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for menu in menus %}
+              <tr>
+                <td>{{ menu.no }}</td>
+                <td>{{ menu.kode_menu }}</td>
+                <td>{{ menu.name }}</td>
+                <td>{{ menu.price }}</td>
+                <td>
+                {{ linkTo('menu.edit', 'Edit Menu', {id: menu.kode_menu}) }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

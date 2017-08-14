@@ -1,0 +1,29 @@
+<table border='1'>
+{% if(res.create) %}
+{{ form.open({action: 'MenuController.store'}) }}
+{% else %}
+{{ form.open({action: 'MenuController.update', params: {id: menu.kode_menu} }) }}
+{% endif %}
+{{ csrfField }}
+    <tr>
+        <td>Kode Menu</td>
+        <td>:</td>
+        <td><input type="text" name="kode_menu" value="{{ menu.kode_menu }}"/></td>
+    </tr>
+    <tr>
+        <td>Nama Menu</td>
+        <td>:</td>
+        <td><input type="text" name="name" value="{{ menu.name }}"/></td>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td>:</td>
+        <td><input type="number" name="price" value="{{ menu.price }}"/></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>{{ form.submit('Submit') }}</td>
+    </tr>
+{{ form.close() }}
+</table>

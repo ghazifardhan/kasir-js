@@ -1,0 +1,14 @@
+<table border='1'>
+  <tr>
+    <th>Kode Menu</th>
+    <th>Nama Menu</th>
+    <th>Harga Menu</th>
+  </tr>
+{% for data in datas %}
+  <tr>
+    <td>{{ data.kode_menu }}</td>
+    <td>{{ data.name }}</td>
+    <td>{{ data.price }}</td>
+  </tr>
+{% endfor %}
+</table>
