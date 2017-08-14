@@ -1,18 +1,14 @@
 'use strict'
 
-const Database = use('Database');
+const Database = use('Database')
+const Menu = use('App/Model/Menu')
 
 class MenuController {
 
   * index(request, response) {
-    const menus = yield Database.table('menu');
-    var no = 1;
+    const menus = yield Menu.all()
 
-    for(var i=0;i<menus.length;i++){
-      menus[i]['no'] = no++;
-    }
-
-    yield response.sendView('menu.index', {menus: menus});
+    yield response.sendView('menu.index', {menus: menus.toJSON()});
   }
 
   * create(request, response) {
@@ -69,7 +65,9 @@ class MenuController {
   }
 
   * destroy(request, response) {
-    //
+    const kode_menu = request.param('id')
+    const menu = yield Database.table('menu').where('kode_menu', kode_menu).del()
+    yield response.route('menu.index')    
   }
 
 }

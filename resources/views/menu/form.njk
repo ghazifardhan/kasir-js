@@ -1,29 +1,48 @@
-<table border='1'>
-{% if(res.create) %}
-{{ form.open({action: 'MenuController.store'}) }}
-{% else %}
-{{ form.open({action: 'MenuController.update', params: {id: menu.kode_menu} }) }}
-{% endif %}
-{{ csrfField }}
-    <tr>
-        <td>Kode Menu</td>
-        <td>:</td>
-        <td><input type="text" name="kode_menu" value="{{ menu.kode_menu }}"/></td>
-    </tr>
-    <tr>
-        <td>Nama Menu</td>
-        <td>:</td>
-        <td><input type="text" name="name" value="{{ menu.name }}"/></td>
-    </tr>
-    <tr>
-        <td>Price</td>
-        <td>:</td>
-        <td><input type="number" name="price" value="{{ menu.price }}"/></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>{{ form.submit('Submit') }}</td>
-    </tr>
-{{ form.close() }}
-</table>
+{% extends 'master' %}
+
+{% block content %}
+<section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="box-header">
+            <h2 class="box-title">Create Menu</h2>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+          <table class="table table-bordered table-hover table-striped table-condensed">
+            {% if(res.create) %}
+            {{ form.open({action: 'MenuController.store'}) }}
+            {% else %}
+            {{ form.open({action: 'MenuController.update', params: {id: menu.kode_menu} }) }}
+            {% endif %}
+            {{ csrfField }}
+                <tr>
+                    <td>Kode Menu</td>
+                    <td>:</td>
+                    <td><input class="form-control" type="text" name="kode_menu" value="{{ menu.kode_menu }}"/></td>
+                </tr>
+                <tr>
+                    <td>Nama Menu</td>
+                    <td>:</td>
+                    <td><input class="form-control" type="text" name="name" value="{{ menu.name }}"/></td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>:</td>
+                    <td><input class="form-control" type="number" name="price" value="{{ menu.price }}"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-primary" value="Submit" /></td>
+                </tr>
+            {{ form.close() }}
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}

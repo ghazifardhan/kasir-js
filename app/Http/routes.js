@@ -19,9 +19,13 @@ const Route = use('Route')
 
 Route.on('/').render('welcome')
 
+/*
 Route.group('auth-routes', () => {
 
     Route.resource('menu', 'MenuController')
     
 }).middleware('auth')
+*/
+
+Route.resource('menu', 'MenuController')
 
