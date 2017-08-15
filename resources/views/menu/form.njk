@@ -19,23 +19,31 @@
             {{ csrfField }}
                 <tr>
                     <td>Kode Menu</td>
-                    <td>:</td>
-                    <td><input class="form-control" type="text" name="kode_menu" value="{{ menu.kode_menu }}"/></td>
+                    <td>
+                      <div id="check-kode">
+                        <input type="text" name="kode_menu" class='form-control'>
+                        <span class="help-block"></span>
+                      </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Nama Menu</td>
-                    <td>:</td>
-                    <td><input class="form-control" type="text" name="name" value="{{ menu.name }}"/></td>
+                    <td><input type="text" name="name" class='form-control'></td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td>:</td>
-                    <td><input class="form-control" type="number" name="price" value="{{ menu.price }}"/></td>
+                    <td>
+                        <div class="input-group">
+                          <span class="input-group-addon">Rp</span><input type="text" name="price" class='form-control number' pattern="[0-9]+([\.,][0-9]+)?" title="Hanya angka">
+                        </div>
+                      </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td></td>
-                    <td><input type="submit" class="btn btn-primary" value="Submit" /></td>
+                    <td>
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                        <input type="reset" class="btn btn-warning" value="Reset">
+                    </td>
                 </tr>
             {{ form.close() }}
           </table>
@@ -44,5 +52,65 @@
       </div>
     </div>
   </section>
+  {% endblock %}
+  {% block script %}
+
+  <script>
+  $(document).ready(function(){
+
+    $('input[name="kode_menu"]').val("{{ menu.kode_menu }}");
+    $('input[name="name"]').val("{{ menu.name }}");
+    $('input[name="price"]').val("{{ menu.price }}");
+
+    $('input.number').keyup(function(event) {
+      // skip for arrow keys
+      if(event.which >= 37 && event.which <= 40){
+          event.preventDefault();
+      }
+
+      $(this).val(function(index, value) {
+          return value
+              .replace(/\D/g, '')
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          ;
+      });
+    });
+
+    var d = document.getElementById("check-kode");
+
+    $('input[name="kode_menu"]').keyup(function(event){
+      // get keycode of current keypress event
+      var code = (event.keyCode || event.which);
+      // do nothing if it's an arrow key
+      if(code == 37 || code == 38 || code == 39 || code == 40) {
+          return;
+      }
+      $(this).val(function(index, value){
+        if(value == ""){
+          d.className = "";
+          $('.help-block').text("");
+        } else {
+          $.ajax({
+            type: 'GET',
+            url: '/check_kode_menu',
+            data: {kode_menu: value},
+            success: function(resp){
+              if(resp.success){
+                d.className = "has-success";
+                $('.help-block').text(resp.result);
+              } else {
+                d.className = "has-error";
+                $('.help-block').text(resp.result);
+              }
+            }
+          });
+        }
+        return value;
+      });
+    });
+
+    });
+
+</script>
 
   {% endblock %}

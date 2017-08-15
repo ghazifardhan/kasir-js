@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Test</title>
+  <title>RH Cafe</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -70,6 +70,7 @@
 
           <!-- User Account: style can be found in dropdown.less -->
           <li><a href="" id="time"></a></li>
+          {% if not currentUser %}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                 Selamat Datang <span class="caret"></span>
@@ -78,21 +79,19 @@
               <li><a href="">Login</a></li>
             </ul>
           </li>
+          {% else %}
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                   <span class="caret"></span>
+              {{ currentUser.name }} <span class="caret"></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
                   <li>
-                      <a href=""
-                          onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">
-                          Logout
-                      </a>
+                      <a href="/logout">Logout</a>
                   </li>
               </ul>
           </li>
+          {% endif %}
           <!-- Control Sidebar Toggle Button -->
         </ul>
       </div>
@@ -121,7 +120,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><i class="fa fa-circle-o"></i>Menu</a></li>
+            <li><a href="/menu"><i class="fa fa-circle-o"></i>Menu</a></li>
             <li><a href=""><i class="fa fa-circle-o"></i>Transaksi</a></li>
             <li><a href=""><i class="fa fa-circle-o"></i>Daftar Transaksi</a></li>
           </ul>

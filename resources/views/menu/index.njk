@@ -12,6 +12,11 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
+            {% if currentUser %}
+            <p>True</p>
+            {% else %}
+            <p>False</p>
+            {% endif %}
             <table id="myTable" class="table table-bordered table-hover table-striped table-condensed">
               <thead>
                 <tr>

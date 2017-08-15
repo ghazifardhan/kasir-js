@@ -16,7 +16,6 @@ Http.handleError = function * (error, request, response) {
 
   /**
    * DEVELOPMENT REPORTER
-   */
   if (Env.get('NODE_ENV') === 'development') {
     const youch = new Youch(error, request.request)
     const type = request.accepts('json', 'html')
@@ -25,12 +24,24 @@ Http.handleError = function * (error, request, response) {
     response.status(status).send(formattedErrors)
     return
   }
+  */ 
+  
+
+
+  /**
+   * INVALID LOGIN EXCEPTION
+   */
+  if (error.name === 'InvalidLoginException') {
+    yield response.sendView('auth.login')
+    return 
+  }
 
   /**
    * PRODUCTION REPORTER
    */
-  console.error(error.stack)
-  yield response.status(status).sendView('errors/index', {error})
+  //console.error(error.stack)
+  //yield response.status(status).sendView('errors/index', {error})
+
 }
 
 /**
